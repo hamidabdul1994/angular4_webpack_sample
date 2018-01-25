@@ -3,6 +3,9 @@ import { enableProdMode } from '@angular/core';
 
 import { AppModule } from './app/app.module';
 
+//For Angular Material
+import 'hammerjs';
+
 if (process.env.ENV === 'production') {
     enableProdMode();
 }
