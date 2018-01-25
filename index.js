@@ -2,18 +2,20 @@ var express = require('express');
 var path = require('path');
 // var open = require('open');
 var webpack = require('webpack');
-var config = require('./webpack.config');
+var configs = require('./webpack.config');
 
 /* eslint-disable no-console */
 
 const port = process.env.PORT || 4200;
 const app = express();
-const compiler = webpack(config);
-
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
-}));
+// const compiler = webpack(config);
+configs.forEach(function (config) {
+  console.log(JSON.stringify(config.webpackConfig.output));
+    app.use(require('webpack-dev-middleware')(webpack(config.webpackConfig), {
+      noInfo: true,
+      publicPath: config.webpackConfig.output.publicPath
+    }));
+});
 
 app.get('/users', function(req, res) {
   // Hard coding for simplicity. Pretend this hits a real database

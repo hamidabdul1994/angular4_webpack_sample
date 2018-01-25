@@ -9,28 +9,30 @@ const APP_CONFIG = {
   API_URL: 'dev.api.local'
 };
 
-module.exports = webpackMerge(commonConfig, {
-  devtool: 'source-map',
+module.exports = function(appName) {
+  return webpackMerge(commonConfig(appName), {
+              devtool: 'source-map',
 
-  output: {
-    path: helpers.root('dist'),
-    publicPath: '',
-    filename: '[name].js',
-    chunkFilename: '[id].chunk.js'
-  },
+              output: {
+        		    path: helpers.root(`dist/${appName}`),
+                publicPath: "",
+                filename: '[name].js',
+                chunkFilename: '[id].chunk.js'
+              },
 
-  plugins: [
-    new ExtractTextPlugin('[name].css'),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'ENV': JSON.stringify(ENV),
-        'APP_CONFIG': JSON.stringify(APP_CONFIG)
-      }      
-    })
-  ],
+              plugins: [
+                new ExtractTextPlugin('[name].css'),
+                new webpack.DefinePlugin({
+                  'process.env': {
+                    'ENV': JSON.stringify(ENV),
+                    'APP_CONFIG': JSON.stringify(APP_CONFIG)
+                  }
+                })
+              ],
 
-  devServer: {
-    historyApiFallback: true,
-    stats: 'minimal'
-  }
-});
+              devServer: {
+                historyApiFallback: true,
+                stats: 'minimal'
+              }
+          });
+}

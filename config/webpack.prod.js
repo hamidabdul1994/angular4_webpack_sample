@@ -13,7 +13,7 @@ module.exports = webpackMerge(commonConfig, {
   devtool: 'source-map',
 
   output: {
-    path: helpers.root('dist'),
+    // path: helpers.root('dist'),
     publicPath: '',
     filename: '[name].[hash].js',
     chunkFilename: '[id].[hash].chunk.js'
@@ -34,7 +34,7 @@ module.exports = webpackMerge(commonConfig, {
       }
     }),
     new webpack.LoaderOptionsPlugin({
-      minimize: true     
+      minimize: true
     })
   ]
 });
