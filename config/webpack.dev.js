@@ -23,7 +23,9 @@ module.exports = function(appName) {
               },
 
               plugins: [
-                new ExtractTextPlugin('[name].css'),
+                new ExtractTextPlugin('[name].css', {
+                  allChunks : true
+                }),
                 new webpack.DefinePlugin({
                   'process.env': {
                     'ENV': JSON.stringify(ENV),

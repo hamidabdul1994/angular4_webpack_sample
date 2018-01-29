@@ -12,15 +12,15 @@ function fileExist(entryPath) {
 }
 
 module.exports = function(appName) {
-			// var entry = {
-			// 	"polyfills" : `./src/${appName}/polyfills.ts`,
-			// 	"vendor" : `./src/${appName}/vendor.ts`,
-			// 	"main" : `./src/${appName}/main.ts`
-			// };
-			var entry = {};
-				entry[`/${appName}/polyfills`] = `./src/${appName}/polyfills.ts`;
-				entry[`/${appName}/vendor`] =  `./src/${appName}/vendor.ts`;
-				entry[`/${appName}/main`] = `./src/${appName}/main.ts`;
+			var entry = {
+				"polyfills" : `./src/${appName}/polyfills.ts`,
+				"vendor" : `./src/${appName}/vendor.ts`,
+				"main" : `./src/${appName}/main.ts`
+			};
+			// var entry = {};
+			// 	entry[`/${appName}/polyfills`] = `./src/${appName}/polyfills.ts`;
+			// 	entry[`/${appName}/vendor`] =  `./src/${appName}/vendor.ts`;
+			// 	entry[`/${appName}/main`] = `./src/${appName}/main.ts`;
 
 			//For checking file is exist or not
 			for (var index in entry) {
@@ -101,7 +101,10 @@ module.exports = function(appName) {
 
 			plugins: [
 				new webpack.optimize.CommonsChunkPlugin({
-					names: ['polyfills', 'vendor', 'main']
+			    minChunks: 1,
+					names: [`/${appName}/polyfills`, `/${appName}/vendor`, `/${appName}/main`]
+					// names: [`polyfills`, `vendor`, `main`]
+
 				}),
 
 				new HtmlWebpackPlugin({
