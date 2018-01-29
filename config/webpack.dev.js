@@ -10,12 +10,14 @@ const APP_CONFIG = {
 };
 
 module.exports = function(appName) {
+  var buildPath = helpers.root(`dist/${appName}`);
+  console.log(buildPath);
+  // https://github.com/webpack/webpack-dev-server/issues/670
   return webpackMerge(commonConfig(appName), {
               devtool: 'source-map',
-
               output: {
-        		    path: helpers.root(`dist/${appName}`),
-                publicPath: "",
+        		    path: buildPath,
+                publicPath: '',
                 filename: '[name].js',
                 chunkFilename: '[id].chunk.js'
               },
@@ -29,8 +31,8 @@ module.exports = function(appName) {
                   }
                 })
               ],
-
               devServer: {
+                contentBase: buildPath,
                 historyApiFallback: true,
                 stats: 'minimal'
               }

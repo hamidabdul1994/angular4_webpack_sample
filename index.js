@@ -10,8 +10,7 @@ const port = process.env.PORT || 4200;
 const app = express();
 // const compiler = webpack(config);
 configs.forEach(function (config) {
-  console.log(JSON.stringify(config.webpackConfig.output));
-    app.use(require('webpack-dev-middleware')(webpack(config.webpackConfig), {
+    app.use(config.route,require('webpack-dev-middleware')(webpack(config.webpackConfig), {
       noInfo: true,
       publicPath: config.webpackConfig.output.publicPath
     }));
